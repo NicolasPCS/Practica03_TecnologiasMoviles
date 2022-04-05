@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.navigationdrawer.SalesReportActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/headerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/reports_header_bk"
+                android:paddingLeft="20dp"
+                android:paddingTop="60dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/cambio_de_tipo_de_moneda"
+                    android:textColor="@color/whiteTextColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_dropdown_arrow" />
+
+                <TextView
+                    android:id="@+id/facts"
+                    style="@style/reportContentText"
+                    android:layout_marginTop="30dp"
+                    android:text="Total de conversiones" />
+
+                <TextView
+                    style="@style/viewParent.headerText"
+                    android:layout_below="@id/facts"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="70dp"
+                    android:text="+ 10 😎"
+                    android:textColor="@color/whiteTextColor" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/cardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/headerLayout"
+                android:layout_marginTop="-80dp">
+
+                <androidx.cardview.widget.CardView
+                    style="@style/reportsCardStyle"
+                    android:layout_height="200dp"
+                    app:cardBackgroundColor="@color/whiteTextColor"
+                    app:cardCornerRadius="16dp">
+
+                    <LinearLayout
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/reportContentText"
+                            android:layout_width="match_parent"
+                            android:text="Ingrese el monto a calcular"
+                            android:textColor="#79D0A3" />
+
+                        <EditText
+                            android:id="@+id/etValorIngresado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Ingrese valor"
+                            android:inputType="numberSigned|numberDecimal"
+                            android:minHeight="48dp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerMoneda"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="Tipos de cambio"
+                            android:minHeight="48dp"
+                            android:spinnerMode="dialog" />
+
+                        <Button
+                            android:id="@+id/btnConvertir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="calcular"
+                            android:text="CONVERTIR" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/cardLayout"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-1dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Euro"
+                                    android:textColor="#0097A7" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text="€ "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvEuro"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView2"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Libra"
+                                    android:textColor="#25C0DE" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text="£ "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvLibra"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView3"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Rupia"
+                                    android:textColor="#25C0DE" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text="R "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvRupia"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView4"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Real"
+                                    android:textColor="#25C0DE" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text="R$ "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvReal"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView5"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Yuan"
+                                    android:textColor="#25C0DE" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text=" ¥ "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvYuan"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView6"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Yen"
+                                    android:textColor="#25C0DE" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text=" ¥ "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvYen"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="11dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView7"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Dólares"
+                                    android:textColor="#25C0DE" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text="$ "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvDolar"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:cardBackgroundColor="@color/whiteTextColor"
+                        app:cardCornerRadius="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:id="@+id/salesImageView8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_cash" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/salesImageView8"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/reportContentText"
+                                    android:text="Soles"
+                                    android:textColor="#25C0DE" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/viewParent.headerText"
+                                        android:text="S/. "
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/tvSoles"
+                                        style="@style/viewParent.headerText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.0"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
